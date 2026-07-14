@@ -28,7 +28,7 @@
 
 ### 1. Подготовка окружения и установка зависимостей
 ```bash
-git clone [https://github.com/yourusername/llama-client.git](https://github.com/yourusername/llama-client.git)
+git clone https://github.com/derion-code/llama-client.git
 cd llama-client
 python3 -m venv .venv
 source .venv/bin/activate
