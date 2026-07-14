@@ -188,7 +188,6 @@ Assistant:
 ```python
 print("Hello, world!")
 ```
-```
 
 Markdown автоматически форматируется библиотекой **Rich**.
 
