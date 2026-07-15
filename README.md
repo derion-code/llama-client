@@ -1,4 +1,4 @@
-# llama-cli-client
+# llama-client
 
 Легковесный терминальный клиент для работы с локальными и удалёнными LLM через **OpenAI Compatible API**.
 
@@ -36,9 +36,9 @@
 ## Установка
 
 ```bash
-git clone https://github.com/derion-code/llama-cli-client.git
+git clone https://github.com/derion-code/llama-client.git
 
-cd llama-cli-client
+cd llama-client
 
 python -m venv .venv
 
@@ -54,7 +54,7 @@ pip install -r requirements.txt
 Все параметры клиента настраиваются через файл `.env` в корне проекта. Создайте файл `.env` (если его нет) и добавьте следующие переменные:
 
 ```dotenv
-API_URL="http://192.168.1.124:8080/v1"
+API_URL="http://localhost:8080/v1"
 API_KEY="None"
 SYSTEM_PROMPT="Ты краткий и полезный ассистент."
 MODEL="local-model"
