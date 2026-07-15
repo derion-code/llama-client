@@ -6,9 +6,12 @@ from src import config
 
 def send_request(message, use_stream):
     response = config.client.chat.completions.create(
-        model="local model",
+        model=config.model,
         messages=config.message_list,
-        stream=use_stream
+        stream=config.use_stream, 
+        temperature=config.temperature,
+        top_p=config.top_p,
+        max_tokens=config.max_tokens,
     )
     return response
 

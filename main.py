@@ -50,4 +50,4 @@ if __name__ == "__main__":
     try:
         main()
     except KeyboardInterrupt:
-        do_exit(config.message_list)
+        commands.do_exit(config.message_list)

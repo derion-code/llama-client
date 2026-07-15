@@ -1,16 +1,27 @@
+import os
 import sys
 import readline
 import locale
 from openai import OpenAI
 from rich.console import Console
+from dotenv import load_dotenv
+
+# Load variables from .env
+load_dotenv()
 
 # --- Variables ---
 
 use_stream = True
 use_markdown_format = True
 
-api_url = "http://192.168.1.124:8080/v1"    
-api_key = "None"
+api_url = os.getenv("api_url", "http://localhost:8080/v1")
+api_key = os.getenv("api_key")
+
+model = os.getenv("model", "local model")
+system_prompt = os.getenv("system_prompt")
+temperature = float(os.getenv("temperature", "0.7"))
+top_p = float(os.getenv("top_p", "0.9"))
+max_tokens = int(os.getenv("max_tokens", "4096"))
 
 client = OpenAI(
     base_url = api_url,
@@ -19,12 +30,7 @@ client = OpenAI(
 
 console = Console()
 
-system_prompt = """
-Ты краткий и полезный ассистент.
-"""
-
 message_list = [{"role": "system", "content": system_prompt}]
-
 
 # --- Prepare to initialization ---
 
