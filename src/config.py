@@ -39,7 +39,7 @@ sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 
 try:
     locale.setlocale(locale.LC_ALL, 'ru_RU.UTF-8')
-except locale.error:
+except locale.Error:
     try:
         locale.setlocale(locale.LC_ALL, '')
     except locale.error:
