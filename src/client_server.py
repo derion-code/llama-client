@@ -1,19 +1,30 @@
 from rich.markdown import Markdown
 from rich.live import Live
+from openai import APIConnectionError, AuthenticationError, NotFoundError, APIError
 from src import config
 
 # --- Client-Server Functions ---
 
 def send_request(message, use_stream):
-    response = config.client.chat.completions.create(
-        model=config.model,
-        messages=config.message_list,
-        stream=config.use_stream, 
-        temperature=config.temperature,
-        top_p=config.top_p,
-        max_tokens=config.max_tokens,
-    )
-    return response
+    try:
+        return config.client.chat.completions.create(
+            model=config.model,
+            messages=config.message_list,
+            stream=config.use_stream, 
+            temperature=config.temperature,
+            top_p=config.top_p,
+            max_tokens=config.max_tokens,
+        )
+    except APIConnectionError:
+        config.console.print("[bold red]Error:[/bold red] Could not connect to the LLM server. Please check if it is running.")
+    except AuthenticationError:
+        config.console.print("[bold red]Error:[/bold red] Authentication failed. Please check your API key.")
+    except NotFoundError:
+        config.console.print("[bold red]Error:[/bold red] The requested model or endpoint was not found.")
+    except APIError as e:
+        config.console.print(f"[bold red]API Error:[/bold red] {e}")
+    
+    return None
 
 def print_response(response, use_markdown_format) -> str:
     full_response = response.choices[0].message.content

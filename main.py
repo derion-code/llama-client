@@ -38,6 +38,12 @@ def main() -> None:
         config.message_list.append({"role": "user", "content": user_message})
         
         response = client_server.send_request(config.message_list, config.use_stream)
+
+        # Check for None message
+        if response is None:
+            config.message_list.pop()
+            continue
+
         if config.use_stream:
             assistant_response = client_server.print_stream_response(response, config.use_markdown_format, use_transient=True)
         else:

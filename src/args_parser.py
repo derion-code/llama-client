@@ -48,13 +48,17 @@ def handle_single_prompt(prompt_arg: str, file_arg: str = None):
             config.console.print(f"[bold red]Файл не найден:[/bold red] {file_arg}")
             return
 
-    message_list.append({"role": "user", "content": prompt_content})
+    config.message_list.append({"role": "user", "content": prompt_content})
     
     try:
-        response = send_request(message_list, use_stream)
-        if use_stream:
-            client_server.print_stream_response(response, use_markdown_format, use_transient=False)
+        response = client_server.send_request(config.message_list, config.use_stream)
+
+        if response is None:
+            return
+
+        if config.use_stream:
+            client_server.print_stream_response(response, config.use_markdown_format, use_transient=True)
         else:
-            client_server.print_response(response, use_markdown_format)
+            client_server.print_response(response, config.use_markdown_format)
     except KeyboardInterrupt:
         print("\n[Generation Interrupted by user]")
